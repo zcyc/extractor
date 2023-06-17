@@ -134,7 +134,7 @@ class CodeWriter(object):
         self.line_spacing = line_spacing
         self.command_chars = command_chars if command_chars else DEFAULT_COMMENT_CHARS
         self.document = (
-            Document(pkg_resources.resource_filename("code_excavator", "template.docx"))
+            Document(pkg_resources.resource_filename("extractor", "template.docx"))
             if not document
             else document
         )
@@ -190,7 +190,7 @@ class CodeWriter(object):
         self.document.save(file)
 
 
-@click.command(name="code_excavator")
+@click.command(name="extractor")
 @click.option(
     "-t",
     "--title",

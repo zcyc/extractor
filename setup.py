@@ -6,9 +6,9 @@ import os
 from setuptools import find_packages, setup
 
 # Package meta-data.
-NAME = "code_excavator"
+NAME = "extractor"
 DESCRIPTION = "计算机软件著作权程序鉴别材料生成器"
-URL = "https://github.com/zcyc/code_excavator"
+URL = "https://github.com/zcyc/extractor"
 EMAIL = "8595764@qq.com"
 AUTHOR = "zcyc"
 REQUIRES_PYTHON = ">=3.6.0"
@@ -26,11 +26,11 @@ EXTRAS = {}
 
 
 # console scripts
-CONSOLE_SCRIPTS = ["code_excavator=code_excavator.code_excavator:main"]
+CONSOLE_SCRIPTS = ["extractor=extractor.extractor:main"]
 
 
 # package data
-PACKAGE_DATA = {"code_excavator": ["template.docx"]}
+PACKAGE_DATA = {"extractor": ["template.docx"]}
 
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------

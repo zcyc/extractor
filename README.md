@@ -1,10 +1,10 @@
-# code_excavator
+# extractor
 
-计算机软件著作权程序鉴别材料（源代码）生成器
+计算机软件著作权程序鉴别材料（源代码）提取器
 
 # 目录
 
-- [code_excavator](#code_excavator)
+- [extractor](#extractor)
 - [目录](#目录)
   - [安装](#安装)
   - [背景](#背景)
@@ -28,7 +28,7 @@
 
 ```shell script
 python setup.py sdist
-pip install .\dist\code_excavator-1.1.0.tar.gz
+pip install .\dist\extractor-1.1.0.tar.gz
 ```
 
 ## 背景
@@ -40,7 +40,7 @@ pip install .\dist\code_excavator-1.1.0.tar.gz
 3. 程序鉴别材料：一般就是源代码整理出的 PDF 文件
 4. 文档鉴别材料：一般就是该软件的操作手册
 
-申请表身份证明比较好准备，文档鉴别材料则必须手写，`code_excavator`则用于生成程序鉴别材料。目前支持如下功能：
+申请表身份证明比较好准备，文档鉴别材料则必须手写，`extractor`则用于生成程序鉴别材料。目前支持如下功能：
 
 1. 指定多个源代码目录
 2. 指定多中注释风格
@@ -69,7 +69,7 @@ pip install .\dist\code_excavator-1.1.0.tar.gz
 ### 参数
 
 ```
-Usage: code_excavator [OPTIONS]
+Usage: extractor [OPTIONS]
 
 Options:
   -t, --title TEXT            软件名称+版本号，默认为软件著作权程序鉴别材料生成器V1.0，此名称用于生成页眉
@@ -89,7 +89,7 @@ Options:
 
 ### 示例
 
-下面以[django-guardian 项目](https://github.com/django-guardian/django-guardian)为例来说明`code_excavator`的用法。
+下面以[django-guardian 项目](https://github.com/django-guardian/django-guardian)为例来说明`extractor`的用法。
 
 #### 克隆代码
 
@@ -100,7 +100,7 @@ git clone git@github.com:django-guardian/django-guardian.git
 #### 生成文档
 
 ```shell script
-code_excavator -i django-guardian -o django-guardian.docx
+extractor -i django-guardian -o django-guardian.docx
 ```
 
 ### 常见问题
@@ -108,7 +108,7 @@ code_excavator -i django-guardian -o django-guardian.docx
 #### 如何指定页眉？
 
 ```shell script
-code_excavator -i django-guardian -t django-guardian -o django-guardian.docx
+extractor -i django-guardian -t django-guardian -o django-guardian.docx
 ```
 
 #### 如何添加其他格式的代码？
@@ -116,7 +116,7 @@ code_excavator -i django-guardian -t django-guardian -o django-guardian.docx
 上述方法只能识别 Python 源码，如果需要识别 html、css、js 代码，可以指定`-e`参数。
 
 ```shell script
-code_excavator -i django-guardian \
+extractor -i django-guardian \
     -t django-guardian \
     -e py -e html -e js \
     -o django-guardian.docx
@@ -125,7 +125,7 @@ code_excavator -i django-guardian \
 #### 如何排除指定文件或文件夹？
 
 ```shell script
-code_excavator -i django-guardian \
+extractor -i django-guardian \
     -t django-guardian \
     --exclude django-guardian/contrib/ \
     --exclude django-guardian/docs/ \
@@ -136,23 +136,23 @@ code_excavator -i django-guardian \
 
 #### 如何调整默认的注释风格？
 
-默认情况下，`code_excavator`把以`#`、`//`开头的行作为注释行删除，例如我想删除以`"""`开头的行（Python 另一种注释风格）：
+默认情况下，`extractor`把以`#`、`//`开头的行作为注释行删除，例如我想删除以`"""`开头的行（Python 另一种注释风格）：
 
 ```shell script
-code_excavator -i django-guardian \
+extractor -i django-guardian \
     -t django-guardian \
     -c '#' -c '//' -c '"""' \
     -o django-guardian.docx
 ```
 
-注意，`code_excavator`目前不支持删除多行注释。
+注意，`extractor`目前不支持删除多行注释。
 
 #### 如何调整字体？
 
-`code_excavator`默认使用宋体，如果需要调整可以使用`--font-name`参数。
+`extractor`默认使用宋体，如果需要调整可以使用`--font-name`参数。
 
 ```shell script
-code_excavator -i django-guardian \
+extractor -i django-guardian \
     -t django-guardian \
     --font-name menlo \
     -o django-guardian.docx
@@ -161,7 +161,7 @@ code_excavator -i django-guardian \
 #### 虽然我知道默认的字体、字号、段前间距、段后间距、行间距可以实现每页 50 行，但是我还是想调整，怎么办？
 
 ```shell script
-code_excavator -i django-guardian \
+extractor -i django-guardian \
     -t django-guardian \
     --font-name menlo \
     --font-size 12 \
@@ -174,25 +174,25 @@ code_excavator -i django-guardian \
 #### 能不能输出查找文件的详细过程呢？
 
 ```shell script
-code_excavator -i django-guardian -o django-guardian.docx -v
+extractor -i django-guardian -o django-guardian.docx -v
 ```
 
 ```
 ...
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/posts/templates/posts目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/posts/templates目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/posts目录下找到8个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/core/migrations目录下找到3个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/core目录下找到7个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/articles/migrations目录下找到3个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/articles/templates/articles目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/articles/templates目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/articles目录下找到10个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/static/css目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/static/js目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/static/img目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/static目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project/templates目录下找到0个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian/example_project目录下找到29个代码文件.
-DEBUG:code_excavator.code_excavator:在/Users/dev/Temp/django-guardian目录下找到94个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/posts/templates/posts目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/posts/templates目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/posts目录下找到8个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/core/migrations目录下找到3个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/core目录下找到7个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/articles/migrations目录下找到3个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/articles/templates/articles目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/articles/templates目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/articles目录下找到10个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/static/css目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/static/js目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/static/img目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/static目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project/templates目录下找到0个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian/example_project目录下找到29个代码文件.
+DEBUG:extractor.extractor:在/Users/dev/Temp/django-guardian目录下找到94个代码文件.
 ```
