@@ -2,7 +2,7 @@
 
 计算机软件著作权程序鉴别材料（源代码）提取器
 
-## 安装
+## 打包安装
 
 ### Windows
 ```shell
@@ -16,7 +16,7 @@ python3 setup.py sdist
 pip3 install dist/extractor-1.1.0.tar.gz
 ```
 
-## 参数
+## 全部参数
 
 ```
 Usage: extractor [OPTIONS]
