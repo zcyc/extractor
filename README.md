@@ -1,3 +1,5 @@
+<img width="256" alt="image" src="https://github.com/zcyc/extractor/assets/9925064/9580609e-f164-4190-b6cc-8e230cb4c6a8">
+
 # extractor
 
 计算机软件著作权程序鉴别材料（源代码）提取器
